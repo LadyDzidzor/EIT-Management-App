@@ -11,7 +11,9 @@ Template.List_Stuff_Page.helpers({
   stuffList() {
     return Stuff.find();
   },
-
+compare(created, signed){
+  return created === signed;
+}
 
 });
 

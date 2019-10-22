@@ -2,37 +2,39 @@
   {{#If_Logged_In}}
     <div class="ui text container">
       {{#if Template.subscriptionsReady}}
-        <table style="margin-top: 20px" class="ui celled table">
+        <table style="margin-top: 20px" class="ui celled inverted selectable table">
           <thead>
           <tr>
+            <th></th>
             <th>Name</th>
             <th>Age</th>
             <th>Nationality</th>
             <th>Edit</th>
             <th>Delete</th>
-            <th></th>
+            
           </tr>
         </thead>       
 
           <tbody>
           {{#each stuffList}}
             <tr>
+                <td> 
+                    <input type="checkbox" id="ui-checkbox" >
+                  </td>
               <td>{{name}}</td>
               <td>{{age}}</td>
               <td>{{country}}</td>
-              <td><a href="{{pathFor 'Edit_Stuff_Page' _id=_id}}">Edit</a></td>
-              <td><a href="#" class="delete" data-id='{{_id}}' data-name='{{name}}'>Delete</a></td> 
-              <td> 
-                <input type="checkbox" id="ui-checkbox" >
-              </td>            
+              <td>{{#if compare createdBy currentUser._id}}<a href="{{pathFor 'Edit_Stuff_Page' _id=_id}}">Edit</a>{{/if}}</td>
+              <td>{{#if compare createdBy currentUser._id}}<a href="#" class="delete" data-id='{{_id}}' data-name='{{name}}'>Delete</a>{{/if}}</td> 
+              
             </tr>
           {{/each}}
           </tbody>
         </table>
-        <button class="negative ui button" id='delete-all'>Delete All</button>
+       {{#if compare createdBy currentUser._id}}<button class="negative ui button" id='delete-all'>Delete All</button>{{/if}}
       {{else}}
         {{> Loading}}
-      {{/if}}
+        {{/if}}
     </div>
   {{/If_Logged_In}}
 </template>
